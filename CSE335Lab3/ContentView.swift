@@ -259,6 +259,6 @@ struct SearchView: View
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(name: "janaka", age: "10", ssn: "1", searchName: "", searchAge: "", deleteS: "")
+        ContentView(name: "Arjun", age: "20", ssn: "1", searchName: "", searchAge: "", deleteS: "")
     }
 }
