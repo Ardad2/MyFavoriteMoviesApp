@@ -12,15 +12,19 @@ class personRecord
     var genre:String? = nil
     var ticketPrice:Int16? = nil
     
-    init(n:String, s:Int64, a:Int16) {
-        self.title = n
-        self.genre = s
-        self.ticketPrice = a
+    init(title:String, genre:String, ticketPrice:Int16) {
+        self.title = title;
+        self.genre = genre;
+        self.ticketPrice = ticketPrice;
     }
     
-    func change_age(newAge:Int16)
+    func change_ticket_price(newTicketPrice:Int16)
     {
-        self.age = newAge;
+        self.ticketPrice = newTicketPrice;
+    }
+    func change_genre(newGenre:Int16)
+    {
+        self.genre = newGenre;
     }
     
 }
