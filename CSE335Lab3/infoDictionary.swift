@@ -31,29 +31,29 @@ class infoDictionary: ObservableObject
         
     }
     
-    func search(s:Int64) -> ticketRecord?
+    func search(t:Int64) -> ticketRecord?
     {
         var found = false
         
-        for (ssn, _) in infoRepository
+        for (movieID, _) in infoRepository
         {
-            if ssn == s {
+            if movieID == t {
             found = true
                 break
             }
         }
         if found
         {
-           return infoRepository[s]
+           return infoRepository[t]
         }else  {
      
             return nil
             }
     }
     
-    func deleteRec(s:Int64)
+    func deleteRec(t:Int64)
     {
-        infoRepository[s] = nil
+        infoRepository[t] = nil
         
     }
 }
