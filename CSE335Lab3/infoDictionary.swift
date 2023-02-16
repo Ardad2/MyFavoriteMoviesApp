@@ -14,8 +14,8 @@ class infoDictionary: ObservableObject
   
     func add(_ title:String, _ genre:String, _ ticketPrice:Int16)
     {
-        let pRecord =  ticketRecord(title: title, genre:genre, ticketPrice: ticketPrice)
-        infoRepository[pRecord.ssn!] = pRecord
+        let pRecord =  ticketRecord(movieID: Int64(infoRepository.count), title: title, genre:genre, ticketPrice: ticketPrice)
+        infoRepository[pRecord.movieID!] = pRecord
         
     }
     

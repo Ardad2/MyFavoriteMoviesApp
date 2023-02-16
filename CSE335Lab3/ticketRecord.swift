@@ -8,12 +8,12 @@
 import Foundation
 class ticketRecord
 {
-    var movieID:Int16? = nil;
+    var movieID:Int64? = nil;
     var title:String? = nil
     var genre:String? = nil
     var ticketPrice:Int16? = nil
     
-    init(movieID:Int16 , title:String, genre:String, ticketPrice:Int16) {
+    init(movieID:Int64 , title:String, genre:String, ticketPrice:Int16) {
         self.movieID = movieID;
         self.title = title;
         self.genre = genre;
