@@ -50,9 +50,9 @@ struct ContentView: View {
 }
 struct NaviView: View
 {
-    @Binding var nameN:String
-    @Binding var ssnN:String
-    @Binding var ageN:String
+    @Binding var titleN:String
+    @Binding var genreN:String
+    @Binding var ticketPriceN:String
     
     @State  var showingDeleteAlert = false
     @Binding  var deleteSSN: String
@@ -67,7 +67,7 @@ struct NaviView: View
                     {
                         print(tModel.getCount())
                         
-                        tModel.add(nameN, Int64(ssnN) ?? 0, Int16(ageN) ?? 0)
+                        tModel.add(titleN, genreN, Int16(ticketPriceN) ?? 0)
                     },
                     label: {
                         Image(systemName: "plus.app")
@@ -77,7 +77,7 @@ struct NaviView: View
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action:
                     {
-                        print(nameN)
+                        print(titleN)
                         showingDeleteAlert = true
                     },
                            label: {
@@ -90,7 +90,7 @@ struct NaviView: View
                    Button("Delete", action: {
                        
                        let ssn = Int64(deleteSSN)
-                       tModel.deleteRec(s:ssn!)
+                       tModel.deleteRec(t:ssn!)
                        showingDeleteAlert = false
                        
                    })
