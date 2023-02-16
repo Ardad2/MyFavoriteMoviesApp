@@ -9,11 +9,12 @@ import SwiftUI
 
 
 struct ContentView: View {
-    @StateObject var personInfoDictionary:infoDictionary = infoDictionary()
+    @StateObject var ticketInfoDictionary:infoDictionary = infoDictionary()
     
-    @State var name:String
-    @State var age:String
-    @State var ssn:String
+    @State var title:String
+    @State var genre:String
+    @State var ticketPrice:String
+    
     
     
     @State var searchName:String
@@ -26,7 +27,7 @@ struct ContentView: View {
         NavigationView{
             VStack {
                 Spacer()
-                NaviView(nameN: $name,ssnN:$ssn, ageN:$age, deleteSSN: $deleteS, pModel: personInfoDictionary )
+                NaviView(titleN: $title,genreN:$genre, ticketPriceN:$ticketPrice, deleteSSN: $deleteS, tModel: ticketInfoDictionary )
                 
                 dataEnterView( nameD: $name,ssnD:$ssn, ageD:$age)
                 Spacer()
@@ -34,7 +35,7 @@ struct ContentView: View {
                 Spacer()
                 SearchView(nameS: $searchName, ageS: $searchAge)
                 Spacer()
-                ToolView(searchSSN: "1", sName: $searchName , sAge: $searchAge, pModel: personInfoDictionary)
+                ToolView(searchSSN: "1", sName: $searchName , sAge: $searchAge, tModel: ticketInfoDictionary)
                
             }
             .padding()
@@ -55,7 +56,7 @@ struct NaviView: View
     
     @State  var showingDeleteAlert = false
     @Binding  var deleteSSN: String
-    @ObservedObject  var pModel : infoDictionary
+    @ObservedObject  var tModel : infoDictionary
     
     var body: some View
     {
@@ -64,9 +65,9 @@ struct NaviView: View
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action:
                     {
-                        print(pModel.getCount())
+                        print(tModel.getCount())
                         
-                        pModel.add(nameN, Int64(ssnN) ?? 0, Int16(ageN) ?? 0)
+                        tModel.add(nameN, Int64(ssnN) ?? 0, Int16(ageN) ?? 0)
                     },
                     label: {
                         Image(systemName: "plus.app")
@@ -89,7 +90,7 @@ struct NaviView: View
                    Button("Delete", action: {
                        
                        let ssn = Int64(deleteSSN)
-                       pModel.deleteRec(s:ssn!)
+                       tModel.deleteRec(s:ssn!)
                        showingDeleteAlert = false
                        
                    })
@@ -111,7 +112,7 @@ struct ToolView: View
     
     @Binding var sName: String
     @Binding var sAge:String
-    @ObservedObject  var pModel : infoDictionary
+    @ObservedObject  var tModel : infoDictionary
     
    // @State  var showingNoRecordsFoundDialog = false
     
@@ -158,7 +159,7 @@ struct ToolView: View
                 Button("Search", action: {
                     
                     let ssn = Int64(searchSSN)
-                    let p =  pModel.search(s: ssn!)
+                    let p =  tModel.search(s: ssn!)
                     if let x = p {
                         sName = x.name!
                         sAge = String(x.age!)
