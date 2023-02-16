@@ -1,18 +1,20 @@
 //
-//  personRecord.swift
+//  ticketRecord.swift
 //  CSE335Lab3
 //
 //  Created by Arjun Dadhwal on 2/14/23.
 //
 
 import Foundation
-class personRecord
+class ticketRecord
 {
+    var movieID:Int16? = nil;
     var title:String? = nil
     var genre:String? = nil
     var ticketPrice:Int16? = nil
     
-    init(title:String, genre:String, ticketPrice:Int16) {
+    init(movieID:Int16 , title:String, genre:String, ticketPrice:Int16) {
+        self.movieID = movieID;
         self.title = title;
         self.genre = genre;
         self.ticketPrice = ticketPrice;

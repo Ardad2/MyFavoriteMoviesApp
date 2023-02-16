@@ -9,12 +9,12 @@ import Foundation
 class infoDictionary: ObservableObject
 {
     // dictionary that stores person records
-    @Published var infoRepository : [Int64:personRecord] = [Int64:personRecord] ()
+    @Published var infoRepository : [Int64:ticketRecord] = [Int64:ticketRecord] ()
     init() { }
   
-    func add(_ name:String, _ ssn:Int64, _ age:Int16)
+    func add(_ title:String, _ genre:String, _ ticketPrice:Int16)
     {
-        let pRecord =  personRecord(n: name, s:ssn, a: age)
+        let pRecord =  ticketRecord(title: title, genre:genre, ticketPrice: ticketPrice)
         infoRepository[pRecord.ssn!] = pRecord
         
     }
@@ -24,14 +24,14 @@ class infoDictionary: ObservableObject
         return infoRepository.count
     }
     
-    func add(p:personRecord)
+    func add(p:ticketRecord)
     {
         print("adding" + p.name!)
         infoRepository[p.ssn!] = p
         
     }
     
-    func search(s:Int64) -> personRecord?
+    func search(s:Int64) -> ticketRecord?
     {
         var found = false
         
