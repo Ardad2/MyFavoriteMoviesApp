@@ -29,13 +29,13 @@ struct ContentView: View {
                 Spacer()
                 NaviView(titleN: $title,genreN:$genre, ticketPriceN:$ticketPrice, deleteSSN: $deleteS, tModel: ticketInfoDictionary )
                 
-                dataEnterView( nameD: $name,ssnD:$ssn, ageD:$age)
+                dataEnterView( titleD: $title,genreD:$genre, ticketPriceD:$ticketPrice)
                 Spacer()
                 Text("Search Results")
                 Spacer()
                 SearchView(nameS: $searchName, ageS: $searchAge)
                 Spacer()
-                ToolView(searchSSN: "1", sName: $searchName , sAge: $searchAge, tModel: ticketInfoDictionary)
+                ToolView(searchSSN: "1", sTitle: $searchName , sAge: $searchAge, tModel: ticketInfoDictionary)
                
             }
             .padding()
@@ -110,7 +110,7 @@ struct ToolView: View
     @State  var searchSSN: String
     @State  var showingSearchAlert = false
     
-    @Binding var sName: String
+    @Binding var sTitle: String
     @Binding var sAge:String
     @ObservedObject  var tModel : infoDictionary
     
@@ -159,14 +159,14 @@ struct ToolView: View
                 Button("Search", action: {
                     
                     let ssn = Int64(searchSSN)
-                    let p =  tModel.search(s: ssn!)
+                    let t =  tModel.search(t: ssn!)
                     if let x = p {
-                        sName = x.name!
+                        sTitle = x.name!
                         sAge = String(x.age!)
                         
                         print("In search")
                     }else{
-                        sName = "No Record "
+                        sTitle = "No Record "
                         sAge =  " "
                         print("No Record")
                     }
