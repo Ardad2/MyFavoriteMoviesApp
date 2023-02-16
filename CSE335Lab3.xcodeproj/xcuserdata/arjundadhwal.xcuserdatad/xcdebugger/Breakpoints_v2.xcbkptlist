@@ -18,6 +18,38 @@
             endingLineNumber = "16"
             landmarkName = "init(movieID:title:genre:ticketPrice:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "36CC1E59-0A1D-4B90-813C-4D409D2BEF6F - ad25b0d11af8706"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CSE335Lab3.ticketRecord.__allocating_init(movieID: Swift.Int64, title: Swift.String, genre: Swift.String, ticketPrice: Swift.Int16) -&gt; CSE335Lab3.ticketRecord"
+                  moduleName = "CSE335Lab3"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/arjundadhwal/Desktop/Spring%202023/CSE%20335/Labs/Lab%203/CSE335Lab3/CSE335Lab3/ticketRecord.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "60">
+               </Location>
+               <Location
+                  uuid = "36CC1E59-0A1D-4B90-813C-4D409D2BEF6F - 7d0872476ed2dd95"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CSE335Lab3.ticketRecord.init(movieID: Swift.Int64, title: Swift.String, genre: Swift.String, ticketPrice: Swift.Int16) -&gt; CSE335Lab3.ticketRecord"
+                  moduleName = "CSE335Lab3"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/arjundadhwal/Desktop/Spring%202023/CSE%20335/Labs/Lab%203/CSE335Lab3/CSE335Lab3/ticketRecord.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "11"
+                  endingLineNumber = "11"
+                  offsetFromSymbolStart = "104">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

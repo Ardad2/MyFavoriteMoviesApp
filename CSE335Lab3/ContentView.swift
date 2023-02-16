@@ -17,8 +17,8 @@ struct ContentView: View {
     
     
     
-    @State var searchName:String
-    @State var searchAge:String
+    @State var searchTitle:String
+    @State var searchGenre:String
     
     @State var deleteS:String
 
@@ -33,9 +33,9 @@ struct ContentView: View {
                 Spacer()
                 Text("Search Results")
                 Spacer()
-                SearchView(nameS: $searchName, ageS: $searchAge)
+                SearchView(nameS: $searchTitle, ageS: $searchGenre)
                 Spacer()
-                ToolView(searchSSN: "1", sTitle: $searchName , sAge: $searchAge, tModel: ticketInfoDictionary)
+                ToolView(searchSSN: "1", sTitle: $searchTitle , sGenre: $searchGenre, tModel: ticketInfoDictionary)
                
             }
             .padding()
@@ -111,7 +111,7 @@ struct ToolView: View
     @State  var showingSearchAlert = false
     
     @Binding var sTitle: String
-    @Binding var sAge:String
+    @Binding var sGenre:String
     @ObservedObject  var tModel : infoDictionary
     
    // @State  var showingNoRecordsFoundDialog = false
@@ -160,14 +160,14 @@ struct ToolView: View
                     
                     let ssn = Int64(searchSSN)
                     let t =  tModel.search(t: ssn!)
-                    if let x = p {
-                        sTitle = x.name!
-                        sAge = String(x.age!)
+                    if let x = t{
+                        sTitle = x.title!
+                        sGenre = x.genre!
                         
                         print("In search")
                     }else{
                         sTitle = "No Record "
-                        sAge =  " "
+                        sGenre =  " "
                         print("No Record")
                     }
                     showingSearchAlert = false
@@ -186,38 +186,38 @@ struct ToolView: View
 
 struct dataEnterView: View
 {
-    @Binding var nameD:String
-    @Binding var ssnD:String
-    @Binding var ageD:String
+    @Binding var titleD:String
+    @Binding var genreD:String
+    @Binding var ticketPriceD:String
     
     var body: some View
     {
         HStack{
            
-            Text("SSN:")
+            Text("Title:")
                 .foregroundColor(.blue)
             Spacer()
-            TextField("Enter SSN", text: $ssnD)
+            TextField("Enter Title", text: $titleD)
                 .textFieldStyle(.roundedBorder)
                 
         }
         
         HStack{
            
-            Text("Name:")
+            Text("Title:")
                 .foregroundColor(.blue)
             Spacer()
-            TextField("Enter Name", text: $nameD)
+            TextField("Enter Title", text: $titleD)
                 .textFieldStyle(.roundedBorder)
                 
         }
         
         HStack{
            
-            Text("Age:")
+            Text("Genre:")
                 .foregroundColor(.blue)
             Spacer()
-            TextField("Enter Age", text: $ageD)
+            TextField("Enter Genre", text: $genreD)
                 .textFieldStyle(.roundedBorder)
                 
         }
@@ -258,8 +258,8 @@ struct SearchView: View
 }
 
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView(name: "Arjun", age: "20", ssn: "1", searchName: "", searchAge: "", deleteS: "")
-    }
-}
+//struct ContentView_Previews: PreviewProvider {
+  //  static var previews: some View {
+        //ContentView(title: "Avatar: The Way of Water", genre: "Sci-fi", ticketPrice: "16.00", searchName: "", searchAge: "", deleteS: "")
+ //   }
+//}
