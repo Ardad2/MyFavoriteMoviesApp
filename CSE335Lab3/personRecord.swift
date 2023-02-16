@@ -22,7 +22,7 @@ class personRecord
     {
         self.ticketPrice = newTicketPrice;
     }
-    func change_genre(newGenre:Int16)
+    func change_genre(newGenre:String)
     {
         self.genre = newGenre;
     }
