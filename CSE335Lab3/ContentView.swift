@@ -9,17 +9,15 @@ import SwiftUI
 
 
 struct ContentView: View {
-    @StateObject var ticketInfoDictionary:infoDictionary = infoDictionary()
+    @StateObject var personInfoDictionary:infoDictionary = infoDictionary()
     
-    @State var title:String
-    @State var genre:String
-    @State var ticketPrice:String
+    @State var name:String
+    @State var age:String
+    @State var ssn:String
     
     
-    
-    @State var searchTitle:String
-    @State var searchGenre:String
-    @State var searchTicketPrice:String
+    @State var searchName:String
+    @State var searchAge:String
     
     @State var deleteS:String
 
@@ -28,15 +26,15 @@ struct ContentView: View {
         NavigationView{
             VStack {
                 Spacer()
-                NaviView(titleN: $title,genreN:$genre, ticketPriceN:$ticketPrice, deleteSSN: $deleteS, tModel: ticketInfoDictionary )
+                NaviView(nameN: $name,ssnN:$ssn, ageN:$age, deleteSSN: $deleteS, pModel: personInfoDictionary )
                 
-                dataEnterView( titleD: $title,genreD:$genre, ticketPriceD:$ticketPrice)
+                dataEnterView( nameD: $name,ssnD:$ssn, ageD:$age)
                 Spacer()
                 Text("Search Results")
                 Spacer()
-                SearchView(titleS: $searchTitle, genreS: $searchGenre, ticketPriceS:$searchTicketPrice)
+                SearchView(nameS: $searchName, ageS: $searchAge)
                 Spacer()
-                ToolView(searchSSN: "1", sTitle: $searchTitle , sGenre: $searchGenre, tModel: ticketInfoDictionary)
+                ToolView(searchSSN: "1", sName: $searchName , sAge: $searchAge, pModel: personInfoDictionary)
                
             }
             .padding()
@@ -51,13 +49,13 @@ struct ContentView: View {
 }
 struct NaviView: View
 {
-    @Binding var titleN:String
-    @Binding var genreN:String
-    @Binding var ticketPriceN:String
+    @Binding var nameN:String
+    @Binding var ssnN:String
+    @Binding var ageN:String
     
     @State  var showingDeleteAlert = false
     @Binding  var deleteSSN: String
-    @ObservedObject  var tModel : infoDictionary
+    @ObservedObject  var pModel : infoDictionary
     
     var body: some View
     {
@@ -66,9 +64,9 @@ struct NaviView: View
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action:
                     {
-                        print(tModel.getCount())
+                        print(pModel.getCount())
                         
-                        tModel.add(titleN, genreN, Int16(ticketPriceN) ?? 0)
+                        pModel.add(nameN, Int64(ssnN) ?? 0, Int16(ageN) ?? 0)
                     },
                     label: {
                         Image(systemName: "plus.app")
@@ -78,7 +76,7 @@ struct NaviView: View
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action:
                     {
-                        print(titleN)
+                        print(nameN)
                         showingDeleteAlert = true
                     },
                            label: {
@@ -91,7 +89,7 @@ struct NaviView: View
                    Button("Delete", action: {
                        
                        let ssn = Int64(deleteSSN)
-                       tModel.deleteRec(t:ssn!)
+                       pModel.deleteRec(s:ssn!)
                        showingDeleteAlert = false
                        
                    })
@@ -111,9 +109,9 @@ struct ToolView: View
     @State  var searchSSN: String
     @State  var showingSearchAlert = false
     
-    @Binding var sTitle: String
-    @Binding var sGenre:String
-    @ObservedObject  var tModel : infoDictionary
+    @Binding var sName: String
+    @Binding var sAge:String
+    @ObservedObject  var pModel : infoDictionary
     
    // @State  var showingNoRecordsFoundDialog = false
     
@@ -160,15 +158,15 @@ struct ToolView: View
                 Button("Search", action: {
                     
                     let ssn = Int64(searchSSN)
-                    let t =  tModel.search(t: ssn!)
-                    if let x = t{
-                        sTitle = x.title!
-                        sGenre = x.genre!
+                    let p =  pModel.search(s: ssn!)
+                    if let x = p {
+                        sName = x.name!
+                        sAge = String(x.age!)
                         
                         print("In search")
                     }else{
-                        sTitle = "No Record "
-                        sGenre =  " "
+                        sName = "No Record "
+                        sAge =  " "
                         print("No Record")
                     }
                     showingSearchAlert = false
@@ -187,38 +185,38 @@ struct ToolView: View
 
 struct dataEnterView: View
 {
-    @Binding var titleD:String
-    @Binding var genreD:String
-    @Binding var ticketPriceD:String
+    @Binding var nameD:String
+    @Binding var ssnD:String
+    @Binding var ageD:String
     
     var body: some View
     {
         HStack{
            
-            Text("Title:")
+            Text("SSN:")
                 .foregroundColor(.blue)
             Spacer()
-            TextField("Enter Title", text: $titleD)
+            TextField("Enter SSN", text: $ssnD)
                 .textFieldStyle(.roundedBorder)
                 
         }
         
         HStack{
            
-            Text("Genre:")
+            Text("Name:")
                 .foregroundColor(.blue)
             Spacer()
-            TextField("Enter Title", text: $genreD)
+            TextField("Enter Name", text: $nameD)
                 .textFieldStyle(.roundedBorder)
                 
         }
         
         HStack{
            
-            Text("Price:")
+            Text("Age:")
                 .foregroundColor(.blue)
             Spacer()
-            TextField("Enter Ticket Price", text: $ticketPriceD)
+            TextField("Enter Age", text: $ageD)
                 .textFieldStyle(.roundedBorder)
                 
         }
@@ -229,18 +227,17 @@ struct dataEnterView: View
 struct SearchView: View
 {
     
-    @Binding var titleS:String
-    @Binding var genreS:String
-    @Binding var ticketPriceS:String
+    @Binding var nameS:String
+    @Binding var ageS:String
     
     var body: some View
     {
         HStack{
            
-            Text("Title:")
+            Text("Name:")
                 .foregroundColor(.blue)
             Spacer()
-            TextField("", text: $titleS)
+            TextField("", text: $nameS)
                 .textFieldStyle(.roundedBorder)
                 
         }
@@ -248,19 +245,10 @@ struct SearchView: View
         
         HStack{
            
-            Text("Genre:")
+            Text("Age:")
                 .foregroundColor(.blue)
             Spacer()
-            TextField("", text: $genreS)
-                .textFieldStyle(.roundedBorder)
-                
-        }
-        HStack{
-           
-            Text("Price:")
-                .foregroundColor(.blue)
-            Spacer()
-            TextField("", text: $genreS)
+            TextField("", text: $ageS)
                 .textFieldStyle(.roundedBorder)
                 
         }
@@ -269,8 +257,9 @@ struct SearchView: View
 }
 
 
-//struct ContentView_Previews: PreviewProvider {
-  //  static var previews: some View {
-        //ContentView(title: "Avatar: The Way of Water", genre: "Sci-fi", ticketPrice: "16.00", searchName: "", searchAge: "", deleteS: "")
- //   }
-//}
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView(name: "janaka", age: "10", ssn: "1", searchName: "", searchAge: "", deleteS: "")
+    }
+}
+

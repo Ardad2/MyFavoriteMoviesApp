@@ -9,13 +9,13 @@ import Foundation
 class infoDictionary: ObservableObject
 {
     // dictionary that stores person records
-    @Published var infoRepository : [Int64:ticketRecord] = [Int64:ticketRecord] ()
+    @Published var infoRepository : [Int64:personRecord] = [Int64:personRecord] ()
     init() { }
   
-    func add(_ title:String, _ genre:String, _ ticketPrice:Int16)
+    func add(_ name:String, _ ssn:Int64, _ age:Int16)
     {
-        let tRecord =  ticketRecord(movieID: Int64(infoRepository.count), title: title, genre:genre, ticketPrice: ticketPrice)
-        infoRepository[tRecord.movieID!] = tRecord
+        let pRecord =  personRecord(n: name, s:ssn, a: age)
+        infoRepository[pRecord.ssn!] = pRecord
         
     }
     
@@ -24,36 +24,36 @@ class infoDictionary: ObservableObject
         return infoRepository.count
     }
     
-    func add(t:ticketRecord)
+    func add(p:personRecord)
     {
-        print("adding" + t.title!)
-        infoRepository[t.movieID!] = t;
+        print("adding" + p.name!)
+        infoRepository[p.ssn!] = p
         
     }
     
-    func search(t:Int64) -> ticketRecord?
+    func search(s:Int64) -> personRecord?
     {
         var found = false
         
-        for (movieID, _) in infoRepository
+        for (ssn, _) in infoRepository
         {
-            if movieID == t {
+            if ssn == s {
             found = true
                 break
             }
         }
         if found
         {
-           return infoRepository[t]
+           return infoRepository[s]
         }else  {
      
             return nil
             }
     }
     
-    func deleteRec(t:Int64)
+    func deleteRec(s:Int64)
     {
-        infoRepository[t] = nil
+        infoRepository[s] = nil
         
     }
 }
