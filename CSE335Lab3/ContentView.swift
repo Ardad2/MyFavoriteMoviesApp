@@ -204,20 +204,20 @@ struct dataEnterView: View
         
         HStack{
            
-            Text("Title:")
+            Text("Genre:")
                 .foregroundColor(.blue)
             Spacer()
-            TextField("Enter Title", text: $titleD)
+            TextField("Enter Title", text: $genreD)
                 .textFieldStyle(.roundedBorder)
                 
         }
         
         HStack{
            
-            Text("Genre:")
+            Text("Price:")
                 .foregroundColor(.blue)
             Spacer()
-            TextField("Enter Genre", text: $genreD)
+            TextField("Enter Ticket Price", text: $ticketPriceD)
                 .textFieldStyle(.roundedBorder)
                 
         }
