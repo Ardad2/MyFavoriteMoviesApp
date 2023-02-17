@@ -15,7 +15,7 @@ class infoDictionary: ObservableObject
     func add(_ name:String, _ ssn:Int64, _ age:Int16)
     {
         let pRecord =  personRecord(n: name, s:ssn, a: age)
-        infoRepository[pRecord.ssn!] = pRecord
+        infoRepository[pRecord.title!] = pRecord
         
     }
     
@@ -26,8 +26,8 @@ class infoDictionary: ObservableObject
     
     func add(p:personRecord)
     {
-        print("adding" + p.name!)
-        infoRepository[p.ssn!] = p
+        print("adding" + p.genre!)
+        infoRepository[p.title!] = p
         
     }
     
@@ -35,9 +35,9 @@ class infoDictionary: ObservableObject
     {
         var found = false
         
-        for (ssn, _) in infoRepository
+        for (title, _) in infoRepository
         {
-            if ssn == s {
+            if title == s {
             found = true
                 break
             }

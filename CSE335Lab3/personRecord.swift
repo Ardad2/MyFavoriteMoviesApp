@@ -8,19 +8,19 @@
 import Foundation
 class personRecord
 {
-    var name:String? = nil
-    var ssn:Int64? = nil
-    var age:Int16? = nil
+    var genre:String? = nil
+    var title:Int64? = nil
+    var ticketPrice:Int16? = nil
     
     init(n:String, s:Int64, a:Int16) {
-        self.name = n
-        self.ssn = s
-        self.age = a
+        self.genre = n
+        self.title = s
+        self.ticketPrice = a
     }
     
     func change_age(newAge:Int16)
     {
-        self.age = newAge;
+        self.ticketPrice = newAge;
     }
     
 }
