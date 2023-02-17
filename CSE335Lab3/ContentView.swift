@@ -19,6 +19,7 @@ struct ContentView: View {
     
     @State var searchTitle:String
     @State var searchGenre:String
+    @State var searchTicketPrice:String
     
     @State var deleteS:String
 
@@ -33,7 +34,7 @@ struct ContentView: View {
                 Spacer()
                 Text("Search Results")
                 Spacer()
-                SearchView(nameS: $searchTitle, ageS: $searchGenre)
+                SearchView(titleS: $searchTitle, genreS: $searchGenre, ticketPriceS:$searchTicketPrice)
                 Spacer()
                 ToolView(searchSSN: "1", sTitle: $searchTitle , sGenre: $searchGenre, tModel: ticketInfoDictionary)
                
@@ -228,17 +229,18 @@ struct dataEnterView: View
 struct SearchView: View
 {
     
-    @Binding var nameS:String
-    @Binding var ageS:String
+    @Binding var titleS:String
+    @Binding var genreS:String
+    @Binding var ticketPriceS:String
     
     var body: some View
     {
         HStack{
            
-            Text("Name:")
+            Text("Title:")
                 .foregroundColor(.blue)
             Spacer()
-            TextField("", text: $nameS)
+            TextField("", text: $titleS)
                 .textFieldStyle(.roundedBorder)
                 
         }
@@ -246,10 +248,19 @@ struct SearchView: View
         
         HStack{
            
-            Text("Age:")
+            Text("Genre:")
                 .foregroundColor(.blue)
             Spacer()
-            TextField("", text: $ageS)
+            TextField("", text: $genreS)
+                .textFieldStyle(.roundedBorder)
+                
+        }
+        HStack{
+           
+            Text("Price:")
+                .foregroundColor(.blue)
+            Spacer()
+            TextField("", text: $genreS)
                 .textFieldStyle(.roundedBorder)
                 
         }
