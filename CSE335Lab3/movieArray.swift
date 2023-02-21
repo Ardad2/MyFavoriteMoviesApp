@@ -16,6 +16,9 @@ class movieArray: ObservableObject
         
     }
     
-    
+    func add_movie(_  title:String, _ genre:String, _ price:Int16 )
+    {
+        array.append(movieRecord(new_title: title, new_genre: genre, new_price: price));
+    }
     
 }
