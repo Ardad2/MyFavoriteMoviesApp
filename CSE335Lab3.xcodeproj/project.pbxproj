@@ -15,6 +15,7 @@
 		8272B991299C6DDE00A13C05 /* CSE335Lab3UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8272B990299C6DDE00A13C05 /* CSE335Lab3UITests.swift */; };
 		8272B993299C6DDE00A13C05 /* CSE335Lab3UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8272B992299C6DDE00A13C05 /* CSE335Lab3UITestsLaunchTests.swift */; };
 		82F6CDB129A56969000FD1C1 /* movieRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F6CDB029A56969000FD1C1 /* movieRecord.swift */; };
+		82F6CDB329A56A6B000FD1C1 /* movieArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F6CDB229A56A6B000FD1C1 /* movieArray.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		8272B990299C6DDE00A13C05 /* CSE335Lab3UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSE335Lab3UITests.swift; sourceTree = "<group>"; };
 		8272B992299C6DDE00A13C05 /* CSE335Lab3UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSE335Lab3UITestsLaunchTests.swift; sourceTree = "<group>"; };
 		82F6CDB029A56969000FD1C1 /* movieRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = movieRecord.swift; sourceTree = "<group>"; };
+		82F6CDB229A56A6B000FD1C1 /* movieArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = movieArray.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 		8272B973299C6DDD00A13C05 /* CSE335Lab3 */ = {
 			isa = PBXGroup;
 			children = (
+				82F6CDB229A56A6B000FD1C1 /* movieArray.swift */,
 				82F6CDB029A56969000FD1C1 /* movieRecord.swift */,
 				8272B974299C6DDD00A13C05 /* CSE335Lab3App.swift */,
 				8272B976299C6DDD00A13C05 /* ContentView.swift */,
@@ -264,6 +267,7 @@
 			files = (
 				8272B977299C6DDD00A13C05 /* ContentView.swift in Sources */,
 				8272B975299C6DDD00A13C05 /* CSE335Lab3App.swift in Sources */,
+				82F6CDB329A56A6B000FD1C1 /* movieArray.swift in Sources */,
 				82F6CDB129A56969000FD1C1 /* movieRecord.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
