@@ -10,4 +10,12 @@ import Foundation
 class movieArray: ObservableObject
 {
     
+    @Published var array:[movieRecord] = [movieRecord]();
+    
+    init() {
+        
+    }
+    
+    
+    
 }
