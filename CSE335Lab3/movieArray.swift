@@ -23,9 +23,26 @@ class movieArray: ObservableObject
     
     func delete_movie(_ title: String)
     {
-        for movies in array {
-            if (movies.)
-        }
+        array.removeAll(where: {$0.get_title() == title})
+
     }
     
+    func search_movie(_ title:String) -> movieRecord?
+    {
+        for movie in array
+        {
+            if (movie.get_title() == title)
+            {
+                return movie;
+            }
+        }
+        
+        return nil;
+    }
+    
+    func edit_movie(changeIndex: Int,_ newGenre: String, _ newPrice: Int16)
+    {
+        array[changeIndex].change_genre(new_genre: newGenre);
+        array[changeIndex].change_price(new_price: newPrice);
+    }
 }

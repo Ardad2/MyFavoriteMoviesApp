@@ -24,9 +24,9 @@ class movieRecord
         self.genre = new_genre;
     }
     
-    func change_price(newPrice:Int16)
+    func change_price(new_price:Int16)
     {
-        self.price = newPrice;
+        self.price = new_price;
     }
     
     func get_title() -> String
