@@ -21,4 +21,11 @@ class movieArray: ObservableObject
         array.append(movieRecord(new_title: title, new_genre: genre, new_price: price));
     }
     
+    func delete_movie(_ title: String)
+    {
+        for movies in array {
+            if (movies.)
+        }
+    }
+    
 }

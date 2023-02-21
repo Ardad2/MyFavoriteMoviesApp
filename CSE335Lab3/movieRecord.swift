@@ -29,5 +29,20 @@ class movieRecord
         self.price = newPrice;
     }
     
+    func get_title() -> String
+    {
+        return self.title!;
+    }
+    
+    func get_genre() -> String
+    {
+        return self.genre!;
+    }
+    
+    func get_price() -> Int16
+    {
+        return self.price!;
+    }
+    
     
 }
