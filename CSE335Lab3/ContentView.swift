@@ -14,7 +14,7 @@ struct ContentView: View {
     var body: some  View {
         
     }
-    
+}
     struct NaviView: View
     {
         @Binding var titleN:String
@@ -209,4 +209,43 @@ struct dataEnterView: View
     
 //Search View
     
-}
+    struct SearchView: View
+    {
+        @Binding var ssnS:String
+        @Binding var nameS:String
+        @Binding var ageS:String
+        
+        var body: some View
+        {
+            HStack{
+               
+                Text("SSN:")
+                    .foregroundColor(.blue)
+                Spacer()
+                TextField("", text: $ssnS)
+                    .textFieldStyle(.roundedBorder)
+                    
+            }
+            HStack{
+               
+                Text("Name:")
+                    .foregroundColor(.blue)
+                Spacer()
+                TextField("", text: $nameS)
+                    .textFieldStyle(.roundedBorder)
+                    
+            }
+            
+            
+            HStack{
+               
+                Text("Age:")
+                    .foregroundColor(.blue)
+                Spacer()
+                TextField("", text: $ageS)
+                    .textFieldStyle(.roundedBorder)
+                    
+            }
+        }
+        
+    }
