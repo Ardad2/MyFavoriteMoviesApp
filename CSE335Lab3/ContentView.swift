@@ -11,8 +11,38 @@ struct ContentView: View {
     
     @StateObject var array:movieArray = movieArray();
     
-    var body: some  View {
-        
+    @State var title:String
+    @State var genre:String
+    @State var price:String
+    
+    @State var searchTitle:String
+    @State var searchGenre:String
+    @State var searchPrice:String
+    
+    @State var deleteTitle:String
+    
+    var body: some View {
+        NavigationView{
+            VStack {
+                Spacer()
+                NaviView(titleN: $title,genreN:$genre, priceN:$price, deleteTitle: $deleteTitle, movieModel: array )
+                
+                dataEnterView( titleD: $title,genreD:$genre, priceD:$price)
+                
+                Spacer()
+                Text("Search Results")
+                Spacer()
+                SearchView(titleS: $searchTitle, genreS: $searchGenre, priceS: $searchPrice)
+                Spacer()
+                ToolView(searchTitle: "1", sTitle: $searchTitle, sGenre: $searchGenre, sPrice: $searchPrice, movieModel: array)
+               
+            }
+            .padding()
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationTitle("Person Info")
+            
+            
+        }
     }
 }
     struct NaviView: View
