@@ -133,26 +133,19 @@ struct ContentView: View {
                         
                         if (m != nil)
                         {
-                            sTitle = m.get_title()
-                            sGenre = m.get_genre()
-                            sPrice = String(m.get_price())
+                            sTitle = m!.get_title()
+                            sGenre = m!.get_genre()
+                            sPrice = String(m!.get_price())
                             
                             print("In search")
                         }
-                        
-                        let ssn = Int64(searchSSN)
-                        let p =  pModel.search(s: ssn!)
-                        if let x = p {
-                            sName = x.name!
-                            sAge = String(x.age!)
-                            
-                            print("In search")
-                        }else{
-                            sName = "No Record "
-                            sAge =  " "
-                            print("No Record")
+                        else {
+                            sTitle = "Record Not found"
+                            sGenre = " "
+                            sPrice = "";
+                            print("Record is not there");
                         }
-                        showingSearchAlert = false
+                    showingSearchAlert = false
                         
                     })
                     
@@ -162,7 +155,7 @@ struct ContentView: View {
                         showingSearchAlert = false
                     })
                 }, message: {
-                    Text("Please enter SSN to Search.")
+                    Text("Please enter Title to Search.")
                 })
         }
         
@@ -172,6 +165,47 @@ struct ContentView: View {
     
     
 //Data Enter View
+    
+struct dataEnterView: View
+    {
+        @Binding var titleD:String
+        @Binding var genreD:String
+        @Binding var priceD:String
+        
+        var body: some View
+        {
+            HStack{
+               
+                Text("Title:")
+                    .foregroundColor(.blue)
+                Spacer()
+                TextField("Enter Title", text: $titleD)
+                    .textFieldStyle(.roundedBorder)
+                    
+            }
+            
+            HStack{
+               
+                Text("Genre:")
+                    .foregroundColor(.blue)
+                Spacer()
+                TextField("Enter Genre", text: $genreD)
+                    .textFieldStyle(.roundedBorder)
+                    
+            }
+            
+            HStack{
+               
+                Text("Price:")
+                    .foregroundColor(.blue)
+                Spacer()
+                TextField("Enter Price", text: $priceD)
+                    .textFieldStyle(.roundedBorder)
+                    
+            }
+        }
+        
+    }
     
 //Search View
     
