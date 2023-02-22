@@ -21,6 +21,8 @@ struct ContentView: View {
     
     @State var deleteTitle:String
     
+    @State var statusMessage:String
+    
     var body: some View {
         NavigationView{
             VStack {
@@ -30,7 +32,7 @@ struct ContentView: View {
                 dataEnterView( titleD: $title,genreD:$genre, priceD:$price)
                 
                 Spacer()
-                Text("Search Results")
+                    Text("\(statusMessage)");
                 Spacer()
                 SearchView(titleS: $searchTitle, genreS: $searchGenre, priceS: $searchPrice)
                 Spacer()
@@ -299,6 +301,7 @@ struct dataEnterView: View
     }
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(title: "Avatar", genre: "Sci-Fi", price: "10.150", searchTitle: "", searchGenre: "", searchPrice: " ", deleteTitle: "")
+        ContentView(title: "Avatar", genre: "Sci-Fi", price: "10.150", searchTitle: "", searchGenre: "", searchPrice: " ", deleteTitle: "", statusMessage
+                    : "Hello World")
     }
 }
