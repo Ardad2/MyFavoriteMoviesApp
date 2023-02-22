@@ -75,7 +75,7 @@ class movieArray: ObservableObject
     
     func getPrevious(_ index:Int) -> movieRecord?
     {
-        if (index == 0)
+        if (index == 0 || index == -1)
         {
             return nil;
         }

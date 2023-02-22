@@ -64,7 +64,7 @@ struct ContentView: View {
                         {
                             //print(movieModel.getCount())
                                                         
-                            movieModel.add_movie(titleN, (genreN), Double(priceN) ?? 0)
+                            movieModel.add_movie(titleN, (genreN), Double(priceN) ?? 0.0)
                         },
                         label: {
                             Image(systemName: "plus.app")
@@ -157,6 +157,15 @@ struct ContentView: View {
                         Button(action:
                         {
                             // implement this as an activity
+                            
+                            let m = movieModel.getPrevious(movieModel.getIndex(sTitle));
+                            
+                            if (m != nil)
+                            {
+                                sTitle = m!.get_title()
+                                sGenre = m!.get_genre()
+                                sPrice = String(m!.get_price())
+                            }
                         },
                                label: {
                             Text("Prev")
