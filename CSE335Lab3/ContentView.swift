@@ -129,6 +129,16 @@ struct ContentView: View {
 
                     Button("Search", action: {
                         
+                        let m = movieModel.search_movie(searchTitle)
+                        
+                        if (m != nil)
+                        {
+                            sTitle = m.get_title()
+                            sGenre = m.get_genre()
+                            sPrice = String(m.get_price())
+                            
+                            print("In search")
+                        }
                         
                         let ssn = Int64(searchSSN)
                         let p =  pModel.search(s: ssn!)
@@ -145,6 +155,9 @@ struct ContentView: View {
                         showingSearchAlert = false
                         
                     })
+                    
+                    
+                    
                     Button("Cancel", role: .cancel, action: {
                         showingSearchAlert = false
                     })
@@ -158,6 +171,8 @@ struct ContentView: View {
     
     
     
-//ASd
+//Data Enter View
+    
+//Search View
     
 }
