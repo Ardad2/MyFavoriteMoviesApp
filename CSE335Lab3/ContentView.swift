@@ -211,27 +211,27 @@ struct dataEnterView: View
     
     struct SearchView: View
     {
-        @Binding var ssnS:String
-        @Binding var nameS:String
-        @Binding var ageS:String
+        @Binding var titleS:String
+        @Binding var genreS:String
+        @Binding var priceS:String
         
         var body: some View
         {
             HStack{
                
-                Text("SSN:")
+                Text("Title:")
                     .foregroundColor(.blue)
                 Spacer()
-                TextField("", text: $ssnS)
+                TextField("", text: $titleS)
                     .textFieldStyle(.roundedBorder)
                     
             }
             HStack{
                
-                Text("Name:")
+                Text("Genre:")
                     .foregroundColor(.blue)
                 Spacer()
-                TextField("", text: $nameS)
+                TextField("", text: $genreS)
                     .textFieldStyle(.roundedBorder)
                     
             }
@@ -239,10 +239,10 @@ struct dataEnterView: View
             
             HStack{
                
-                Text("Age:")
+                Text("Price:")
                     .foregroundColor(.blue)
                 Spacer()
-                TextField("", text: $ageS)
+                TextField("", text: $priceS)
                     .textFieldStyle(.roundedBorder)
                     
             }
