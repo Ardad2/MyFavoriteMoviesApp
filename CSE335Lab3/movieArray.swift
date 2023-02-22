@@ -36,7 +36,7 @@ class movieArray: ObservableObject
     
     //Add:
     
-    func add_movie(_ title:String, _ genre:String, _ price:Int16)
+    func add_movie(_ title:String, _ genre:String, _ price:Double)
     {
         array.append(movieRecord(new_title: title, new_genre: genre, new_price: price));
     }
@@ -65,7 +65,7 @@ class movieArray: ObservableObject
     
     //Edit
     
-    func edit_movie(changeIndex: Int,_ newGenre: String, _ newPrice: Int16)
+    func edit_movie(changeIndex: Int,_ newGenre: String, _ newPrice: Double)
     {
         array[changeIndex].change_genre(new_genre: newGenre);
         array[changeIndex].change_price(new_price: newPrice);

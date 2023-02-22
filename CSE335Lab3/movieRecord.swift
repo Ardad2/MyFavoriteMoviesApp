@@ -11,9 +11,9 @@ class movieRecord
 {
     var title:String? = nil;
     var genre:String? = nil;
-    var price:Int16? = nil;
+    var price:Double? = nil;
     
-    init(new_title:String, new_genre: String, new_price:Int16) {
+    init(new_title:String, new_genre: String, new_price:Double) {
         self.title = new_title;
         self.genre = new_genre;
         self.price = new_price;
@@ -24,7 +24,7 @@ class movieRecord
         self.genre = new_genre;
     }
     
-    func change_price(new_price:Int16)
+    func change_price(new_price:Double)
     {
         self.price = new_price;
     }
@@ -39,7 +39,7 @@ class movieRecord
         return self.genre!;
     }
     
-    func get_price() -> Int16
+    func get_price() -> Double
     {
         return self.price!;
     }
