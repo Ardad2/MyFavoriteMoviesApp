@@ -279,3 +279,8 @@ struct dataEnterView: View
         }
         
     }
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView(title: "Avatar", genre: "Sci-Fi", price: "10.150", searchTitle: "", searchGenre: "", searchPrice: " ", deleteTitle: "")
+    }
+}

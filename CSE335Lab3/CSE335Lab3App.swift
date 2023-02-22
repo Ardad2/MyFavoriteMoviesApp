@@ -11,7 +11,7 @@ import SwiftUI
 struct CSE335Lab3App: App {
     var body: some Scene {
         WindowGroup {
-            ContentView(genre: "Janaka", ticketPrice: "10", title: "1", searchTitle: "", searchGenre: "", searchTicketPrice: "", deleteS: "")
+            ContentView(title: "Avatar", genre: "Sci-Fi", price: "10.150", searchTitle: "", searchGenre: "", searchPrice: " ", deleteTitle: "")
 
 
         }
