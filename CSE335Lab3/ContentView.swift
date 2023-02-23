@@ -34,7 +34,7 @@ struct ContentView: View {
                 Spacer()
                 NaviView(titleN: $title,genreN:$genre, priceN:$price, statusMessage: $statusMessage, deleteTitle: $deleteTitle, movieModel: array, searchMode: $searchMode)
                 
-                //Text("Details of New Movie")
+                Text("Details for New Movie")
                 
                 dataEnterView( titleD: $title,genreD:$genre, priceD:$price, statusMessage: $statusMessage, searchMode: $searchMode)
                 
@@ -58,7 +58,7 @@ struct ContentView: View {
             }
             .padding()
             .navigationBarTitleDisplayMode(.inline)
-            .navigationTitle("Person Info")
+            .navigationTitle("My Favorite Movies")
             
             
         }
@@ -120,9 +120,9 @@ struct ContentView: View {
                            if ((movieModel.getIndex(deleteTitle)) != -1 )
                            {
                                movieModel.delete_movie(deleteTitle);
-                               
+                                                              
                                searchMode = true;
-                               statusMessage = "The deleted movie's details:  "
+                               statusMessage = "The movie \(deleteTitle) was succesfully deleted."
                            }
                            
                            else {
@@ -306,7 +306,7 @@ struct ContentView: View {
                             showingSearchAlert = false
                         })
                     }, message: {
-                        Text("Please enter Title to Search.")
+                        Text("Please enter the new genre and price.")
                     })
             }
             else {
