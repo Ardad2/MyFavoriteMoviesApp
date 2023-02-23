@@ -161,6 +161,58 @@ struct ContentView: View {
                         
                         ToolbarItemGroup(placement: .bottomBar) {
                             Spacer()
+                        }
+                    }.alert("Search Record", isPresented: $showingSearchAlert, actions: {
+                        TextField("Enter Title", text: $searchTitle)
+                        
+                        Button("Search", action: {
+                            
+                            let m = movieModel.search_movie(searchTitle)
+                            
+                            if (m != nil)
+                            {
+                                sTitle = m!.get_title()
+                                sGenre = m!.get_genre()
+                                sPrice = String(m!.get_price())
+                                
+                                print("In search")
+                            }
+                            else {
+                                sTitle = "Record Not found"
+                                sGenre = " "
+                                sPrice = "";
+                                print("Record is not there");
+                            }
+                            showingSearchAlert = false
+                            
+                        })
+                        
+                        
+                        
+                        Button("Cancel", role: .cancel, action: {
+                            showingSearchAlert = false
+                        })
+                    }, message: {
+                        Text("Please enter Title to Search.")
+                    })
+            }
+            else {
+                Text("")
+                    .toolbar{
+                        ToolbarItem(placement: .bottomBar) {
+                            Button(action:
+                                    {
+                                showingSearchAlert = true
+                                
+                            },
+                                   label: {
+                                Image(systemName:"eye")
+                                    .scaledToFit()
+                            })
+                        }
+                        
+                        ToolbarItemGroup(placement: .bottomBar) {
+                            Spacer()
                             Button(action:
                                     {
                                 // implement this as an activity
@@ -256,9 +308,7 @@ struct ContentView: View {
                     }, message: {
                         Text("Please enter Title to Search.")
                     })
-            }
-            else {
-                Text("Currenlty in navigation mode")
+                
             }
             
         }
