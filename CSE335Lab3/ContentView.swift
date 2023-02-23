@@ -195,6 +195,12 @@ struct ContentView: View {
                                     sGenre = m!.get_genre()
                                     sPrice = String(m!.get_price())
                                 }
+                                else
+                                {
+                                    sTitle = ""
+                                    sGenre = ""
+                                    sPrice = ""
+                                }
                                 
                                 searchMode = false;
                             },
