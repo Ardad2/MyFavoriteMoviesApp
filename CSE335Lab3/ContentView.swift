@@ -93,6 +93,7 @@ struct ContentView: View {
                                 
                             else {
                                 movieModel.add_movie(titleN, (genreN), Double(priceN) ?? 0.0)
+                                statusMessage = "Added movie \(titleN) to the records!"
                                 searchMode = true
                             }
                         },
@@ -116,10 +117,17 @@ struct ContentView: View {
 
                        Button("Delete", action: {
 
-                           movieModel.delete_movie(deleteTitle);
-                            
-                           searchMode = true;
-                           statusMessage = "The deleted moive's details:  "
+                           if ((movieModel.getIndex(deleteTitle)) != -1 )
+                           {
+                               movieModel.delete_movie(deleteTitle);
+                               
+                               searchMode = true;
+                               statusMessage = "The deleted movie's details:  "
+                           }
+                           
+                           else {
+                               statusMessage = "The movie was not found in the records!"
+                           }
                            
                            showingDeleteAlert = false
                            
@@ -128,7 +136,7 @@ struct ContentView: View {
                            showingDeleteAlert = false
                        })
                    }, message: {
-                       Text("Please enter Title to Search.")
+                       Text("Please enter Title to Search and then delete.")
                    })
             
             }
@@ -208,6 +216,8 @@ struct ContentView: View {
                             Spacer()
                             Button(action:
                                     {
+                                statusMessage = ""
+                                
                                 let m = movieModel.getHead()
                                 
                                 if (m != nil)
@@ -218,6 +228,8 @@ struct ContentView: View {
                                 }
                                 else
                                 {
+                                    statusMessage = "There are no records present!"
+                                    
                                     sTitle = ""
                                     sGenre = ""
                                     sPrice = ""
@@ -240,6 +252,7 @@ struct ContentView: View {
                             
                             if (m != nil)
                             {
+                                statusMessage="Succesfully searched for movie \(searchTitle)!"
                                 sTitle = m!.get_title()
                                 sGenre = m!.get_genre()
                                 sPrice = String(m!.get_price())
@@ -275,16 +288,13 @@ struct ContentView: View {
                         Button("Edit", action: {
                             
                             searchMode = true
-                            
-                            //let m = movieModel.getHead()
-                            
-                                
+                                                            
                                 movieModel.edit_movie(changeIndex: (movieModel.getIndex(sTitle)), newGenre, Double(newPrice) ?? 0.0);
                                 
-                                sTitle = ""
-                                sGenre = ""
-                                sPrice = ""
+                                sGenre = sGenre + "(Old) --> \(newGenre) (New)"
+                                sPrice = sPrice + "(Old) --> \(newPrice) (New)"
 
+                            statusMessage = "Succesfully edited the following record"
                             
                             showingEditAlert = false
                             
