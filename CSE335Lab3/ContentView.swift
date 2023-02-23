@@ -23,20 +23,22 @@ struct ContentView: View {
     
     @State var statusMessage:String
     
+    @State var searchMode:Bool
+    
     var body: some View {
         NavigationView{
             VStack {
                 Spacer()
-                NaviView(titleN: $title,genreN:$genre, priceN:$price, deleteTitle: $deleteTitle, movieModel: array )
+                NaviView(titleN: $title,genreN:$genre, priceN:$price, statusMessage: $statusMessage, deleteTitle: $deleteTitle, movieModel: array )
                 
-                dataEnterView( titleD: $title,genreD:$genre, priceD:$price)
+                dataEnterView( titleD: $title,genreD:$genre, priceD:$price, statusMessage: $statusMessage)
                 
                 Spacer()
                     Text("\(statusMessage)");
                 Spacer()
-                SearchView(titleS: $searchTitle, genreS: $searchGenre, priceS: $searchPrice)
+                SearchView(titleS: $searchTitle, genreS: $searchGenre, priceS: $searchPrice, statusMessage: $statusMessage)
                 Spacer()
-                ToolView(searchTitle: "1", sTitle: $searchTitle, sGenre: $searchGenre, sPrice: $searchPrice, movieModel: array)
+                ToolView(searchTitle: "1", sTitle: $searchTitle, sGenre: $searchGenre, sPrice: $searchPrice, statusMessage: $statusMessage, movieModel: array)
                
             }
             .padding()
@@ -52,6 +54,7 @@ struct ContentView: View {
         @Binding var titleN:String
         @Binding var genreN:String
         @Binding var priceN:String
+        @Binding var statusMessage:String
         
         @State var showingDeleteAlert = false
         @Binding var deleteTitle: String
@@ -88,7 +91,12 @@ struct ContentView: View {
 
                        Button("Delete", action: {
                            
+                           titleN = (movieModel.getPrevious(movieModel.getIndex(deleteTitle)))!.get_title();
+                           genreN = (movieModel.getPrevious(movieModel.getIndex(deleteTitle)))!.get_genre();
+                           priceN =  String((movieModel.getPrevious(movieModel.getIndex(deleteTitle)))!.get_price());
+                           
                            movieModel.delete_movie(deleteTitle);
+                            
                            
                            showingDeleteAlert = false
                            
@@ -114,6 +122,7 @@ struct ContentView: View {
         @Binding var sTitle: String
         @Binding var sGenre: String
         @Binding var sPrice:String
+        @Binding var statusMessage:String
         @ObservedObject var movieModel : movieArray
 
         @State  var showingNoRecordsFoundDialog = false
@@ -150,6 +159,17 @@ struct ContentView: View {
                                 sPrice = String(m!.get_price())
                             }
                             
+                            else {
+                                if (movieModel.getIndex(sTitle) == -1)
+                                {
+                                    statusMessage = "There are no Records present!";
+                                }
+                                else
+                                {
+                                    statusMessage = "No more Records!";
+                                }
+                            }
+                            
                         },
                                label: {
                             Text("Next")
@@ -167,6 +187,16 @@ struct ContentView: View {
                                 sTitle = m!.get_title()
                                 sGenre = m!.get_genre()
                                 sPrice = String(m!.get_price())
+                            }
+                            else {
+                                if (movieModel.getIndex(sTitle) == 0)
+                                {
+                                    statusMessage = "Showing the first Record";
+                                }
+                                else
+                                {
+                                    statusMessage = "There are no Records present!";
+                                }
                             }
                         },
                                label: {
@@ -209,6 +239,10 @@ struct ContentView: View {
                 })
         }
         
+        
+        
+        
+        
     }
 
     
@@ -221,6 +255,8 @@ struct dataEnterView: View
         @Binding var titleD:String
         @Binding var genreD:String
         @Binding var priceD:String
+        @Binding var statusMessage:String
+
         
         var body: some View
         {
@@ -264,6 +300,7 @@ struct dataEnterView: View
         @Binding var titleS:String
         @Binding var genreS:String
         @Binding var priceS:String
+        @Binding var statusMessage:String
         
         var body: some View
         {
@@ -302,6 +339,6 @@ struct dataEnterView: View
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView(title: "Avatar", genre: "Sci-Fi", price: "10.150", searchTitle: "", searchGenre: "", searchPrice: " ", deleteTitle: "", statusMessage
-                    : "Hello World")
+                    : "", searchMode: false)
     }
 }
