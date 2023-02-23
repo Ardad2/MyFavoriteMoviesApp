@@ -164,8 +164,45 @@ struct ContentView: View {
                         
                         ToolbarItemGroup(placement: .bottomBar) {
                             Spacer()
-                        }
-                    }.alert("Search Record", isPresented: $showingSearchAlert, actions: {
+                            Button(action:
+                                    {
+                                // implement this as an activity
+                                
+                                let m = movieModel.getNext(movieModel.getIndex(sTitle));
+                                
+                                if (m != nil)
+                                {
+                                    sTitle = m!.get_title()
+                                    sGenre = m!.get_genre()
+                                    sPrice = String(m!.get_price())
+                                }
+                                
+                                else {
+                                    if (movieModel.getIndex(sTitle) == -1)
+                                    {
+                                        statusMessage = "There are no Records present!";
+                                    }
+                                    else
+                                    {
+                                        statusMessage = "No more Records!";
+                                    }
+                                }
+                                
+                            },
+                                   label: {
+                                Text("Delete")
+                            })
+                            
+                            Spacer()
+                            Button(action:
+                                    {
+                                searchMode = false;
+                            },
+                                   label: {
+                                Text("Navigation Mode")
+                            })
+                            Spacer()
+                        } }.alert("Search Record", isPresented: $showingSearchAlert, actions: {
                         TextField("Enter Title", text: $searchTitle)
                         
                         Button("Search", action: {
