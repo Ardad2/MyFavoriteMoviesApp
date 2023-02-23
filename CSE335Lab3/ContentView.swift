@@ -25,20 +25,33 @@ struct ContentView: View {
     
     @State var searchMode:Bool
     
+    
     var body: some View {
         NavigationView{
             VStack {
                 Spacer()
                 NaviView(titleN: $title,genreN:$genre, priceN:$price, statusMessage: $statusMessage, deleteTitle: $deleteTitle, movieModel: array )
                 
+                Text("Details of New Movie")
+                
                 dataEnterView( titleD: $title,genreD:$genre, priceD:$price, statusMessage: $statusMessage)
                 
                 Spacer()
                     Text("\(statusMessage)");
                 Spacer()
-                SearchView(titleS: $searchTitle, genreS: $searchGenre, priceS: $searchPrice, statusMessage: $statusMessage)
+                VStack {
+                    if (searchMode == true)
+                    {
+                        Text("Currently in search mode")
+                    }
+                    else
+                    {
+                        Text("Currently in navigation mode")
+                    }
+                    SearchView(titleS: $searchTitle, genreS: $searchGenre, priceS: $searchPrice, statusMessage: $statusMessage)
+                }
                 Spacer()
-                ToolView(searchTitle: "1", sTitle: $searchTitle, sGenre: $searchGenre, sPrice: $searchPrice, statusMessage: $statusMessage, movieModel: array)
+                ToolView(searchTitle: "1", sTitle: $searchTitle, sGenre: $searchGenre, sPrice: $searchPrice, statusMessage: $statusMessage, searchMode: $searchMode, movieModel: array)
                
             }
             .padding()
@@ -123,123 +136,132 @@ struct ContentView: View {
         @Binding var sGenre: String
         @Binding var sPrice:String
         @Binding var statusMessage:String
+        @Binding var searchMode:Bool
         @ObservedObject var movieModel : movieArray
 
         @State  var showingNoRecordsFoundDialog = false
         
         var body: some View
         {
-            Text("")
-                .toolbar{
-                    ToolbarItem(placement: .bottomBar) {
-                        Button(action:
-                        {
+            if (searchMode == true)
+            {
+                Text("")
+                    .toolbar{
+                        ToolbarItem(placement: .bottomBar) {
+                            Button(action:
+                                    {
                                 showingSearchAlert = true
+                                
+                            },
+                                   label: {
+                                Image(systemName:"eye")
+                                    .scaledToFit()
+                            })
+                        }
+                        
+                        ToolbarItemGroup(placement: .bottomBar) {
+                            Spacer()
+                            Button(action:
+                                    {
+                                // implement this as an activity
+                                
+                                let m = movieModel.getNext(movieModel.getIndex(sTitle));
+                                
+                                if (m != nil)
+                                {
+                                    sTitle = m!.get_title()
+                                    sGenre = m!.get_genre()
+                                    sPrice = String(m!.get_price())
+                                }
+                                
+                                else {
+                                    if (movieModel.getIndex(sTitle) == -1)
+                                    {
+                                        statusMessage = "There are no Records present!";
+                                    }
+                                    else
+                                    {
+                                        statusMessage = "No more Records!";
+                                    }
+                                }
+                                
+                            },
+                                   label: {
+                                Text("Next")
+                            })
                             
-                        },
-                               label: {
-                            Image(systemName:"eye")
-                                .scaledToFit()
-                        })
-                    }
-                    
-                    
-                    ToolbarItemGroup(placement: .bottomBar) {
-                        Spacer()
-                        Button(action:
-                        {
-                            // implement this as an activity
+                            Spacer()
+                            Button(action:
+                                    {
+                                // implement this as an activity
+                                
+                                let m = movieModel.getPrevious(movieModel.getIndex(sTitle));
+                                
+                                if (m != nil)
+                                {
+                                    sTitle = m!.get_title()
+                                    sGenre = m!.get_genre()
+                                    sPrice = String(m!.get_price())
+                                }
+                                else {
+                                    if (movieModel.getIndex(sTitle) == 0)
+                                    {
+                                        statusMessage = "Showing the first Record";
+                                    }
+                                    else
+                                    {
+                                        statusMessage = "There are no Records present!";
+                                    }
+                                }
+                            },
+                                   label: {
+                                Text("Prev")
+                            })
                             
-                            let m = movieModel.getNext(movieModel.getIndex(sTitle));
+                            
+                            
+                            
+                            Spacer()
+                        }
+                    }.alert("Search Record", isPresented: $showingSearchAlert, actions: {
+                        TextField("Enter Title", text: $searchTitle)
+                        
+                        Button("Search", action: {
+                            
+                            let m = movieModel.search_movie(searchTitle)
                             
                             if (m != nil)
                             {
                                 sTitle = m!.get_title()
                                 sGenre = m!.get_genre()
                                 sPrice = String(m!.get_price())
-                            }
-                            
-                            else {
-                                if (movieModel.getIndex(sTitle) == -1)
-                                {
-                                    statusMessage = "There are no Records present!";
-                                }
-                                else
-                                {
-                                    statusMessage = "No more Records!";
-                                }
-                            }
-                            
-                        },
-                               label: {
-                            Text("Next")
-                        })
-                        
-                        Spacer()
-                        Button(action:
-                        {
-                            // implement this as an activity
-                            
-                            let m = movieModel.getPrevious(movieModel.getIndex(sTitle));
-                            
-                            if (m != nil)
-                            {
-                                sTitle = m!.get_title()
-                                sGenre = m!.get_genre()
-                                sPrice = String(m!.get_price())
+                                
+                                print("In search")
                             }
                             else {
-                                if (movieModel.getIndex(sTitle) == 0)
-                                {
-                                    statusMessage = "Showing the first Record";
-                                }
-                                else
-                                {
-                                    statusMessage = "There are no Records present!";
-                                }
+                                sTitle = "Record Not found"
+                                sGenre = " "
+                                sPrice = "";
+                                print("Record is not there");
                             }
-                        },
-                               label: {
-                            Text("Prev")
-                        })
-                        Spacer()
-                    }
-                }.alert("Search Record", isPresented: $showingSearchAlert, actions: {
-                    TextField("Enter Title", text: $searchTitle)
-
-                    Button("Search", action: {
-                        
-                        let m = movieModel.search_movie(searchTitle)
-                        
-                        if (m != nil)
-                        {
-                            sTitle = m!.get_title()
-                            sGenre = m!.get_genre()
-                            sPrice = String(m!.get_price())
+                            showingSearchAlert = false
                             
-                            print("In search")
-                        }
-                        else {
-                            sTitle = "Record Not found"
-                            sGenre = " "
-                            sPrice = "";
-                            print("Record is not there");
-                        }
-                    showingSearchAlert = false
+                        })
                         
+                        
+                        
+                        Button("Cancel", role: .cancel, action: {
+                            showingSearchAlert = false
+                        })
+                    }, message: {
+                        Text("Please enter Title to Search.")
                     })
-                    
-                    
-                    
-                    Button("Cancel", role: .cancel, action: {
-                        showingSearchAlert = false
-                    })
-                }, message: {
-                    Text("Please enter Title to Search.")
-                })
+            }
+            else {
+                Text("Currenlty in navigation mode")
+            }
+            
         }
-        
-        
         
         
         
@@ -291,6 +313,10 @@ struct dataEnterView: View
             }
         }
         
+    
+    
+    
+    
     }
     
 //Search View
