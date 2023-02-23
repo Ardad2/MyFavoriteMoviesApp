@@ -30,11 +30,11 @@ struct ContentView: View {
         NavigationView{
             VStack {
                 Spacer()
-                NaviView(titleN: $title,genreN:$genre, priceN:$price, statusMessage: $statusMessage, deleteTitle: $deleteTitle, movieModel: array )
+                NaviView(titleN: $title,genreN:$genre, priceN:$price, statusMessage: $statusMessage, deleteTitle: $deleteTitle, movieModel: array, searchMode: $searchMode)
                 
                 Text("Details of New Movie")
                 
-                dataEnterView( titleD: $title,genreD:$genre, priceD:$price, statusMessage: $statusMessage)
+                dataEnterView( titleD: $title,genreD:$genre, priceD:$price, statusMessage: $statusMessage, searchMode: $searchMode)
                 
                 Spacer()
                     Text("\(statusMessage)");
@@ -48,7 +48,7 @@ struct ContentView: View {
                     {
                         Text("Currently in navigation mode")
                     }
-                    SearchView(titleS: $searchTitle, genreS: $searchGenre, priceS: $searchPrice, statusMessage: $statusMessage)
+                    SearchView(titleS: $searchTitle, genreS: $searchGenre, priceS: $searchPrice, statusMessage: $statusMessage, searchMode: $searchMode)
                 }
                 Spacer()
                 ToolView(searchTitle: "1", sTitle: $searchTitle, sGenre: $searchGenre, sPrice: $searchPrice, statusMessage: $statusMessage, searchMode: $searchMode, movieModel: array)
@@ -72,6 +72,8 @@ struct ContentView: View {
         @State var showingDeleteAlert = false
         @Binding var deleteTitle: String
         @ObservedObject var movieModel : movieArray
+        
+        @Binding var searchMode:Bool;
 
         var body: some View
         {
@@ -110,6 +112,7 @@ struct ContentView: View {
                            
                            movieModel.delete_movie(deleteTitle);
                             
+                           searchMode = false;
                            
                            showingDeleteAlert = false
                            
@@ -166,6 +169,8 @@ struct ContentView: View {
                         TextField("Enter Title", text: $searchTitle)
                         
                         Button("Search", action: {
+                            
+                            searchMode = true
                             
                             let m = movieModel.search_movie(searchTitle)
                             
@@ -279,6 +284,7 @@ struct ContentView: View {
                         TextField("Enter Title", text: $searchTitle)
                         
                         Button("Search", action: {
+                            searchMode = true
                             
                             let m = movieModel.search_movie(searchTitle)
                             
@@ -328,6 +334,8 @@ struct dataEnterView: View
         @Binding var genreD:String
         @Binding var priceD:String
         @Binding var statusMessage:String
+        @Binding var searchMode:Bool;
+
 
         
         var body: some View
@@ -377,6 +385,8 @@ struct dataEnterView: View
         @Binding var genreS:String
         @Binding var priceS:String
         @Binding var statusMessage:String
+        @Binding var searchMode:Bool;
+
         
         var body: some View
         {
