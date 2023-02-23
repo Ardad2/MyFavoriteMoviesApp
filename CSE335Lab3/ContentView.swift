@@ -144,7 +144,11 @@ struct ContentView: View {
         @Binding var sPrice:String
         @Binding var statusMessage:String
         @Binding var searchMode:Bool
+        @Binding var clearSearchMode:Bool;
+        
         @ObservedObject var movieModel : movieArray
+        
+        
         
 
         @State  var showingNoRecordsFoundDialog = false
@@ -207,7 +211,9 @@ struct ContentView: View {
                                 print("In search")
                             }
                             else {
-                                sTitle = "Record Not found"
+                                statusMessage="The record was not found!"
+                                
+                                sTitle = ""
                                 sGenre = " "
                                 sPrice = "";
                                 print("Record is not there");
@@ -446,7 +452,7 @@ struct dataEnterView: View
                     .foregroundColor(.blue)
                 Spacer()
                 TextField("", text: $titleS)
-                    .textFieldStyle(.roundedBorder)
+                    .textFieldStyle(.roundedBorder).disabled(true)
                     
             }
             HStack{
@@ -455,7 +461,7 @@ struct dataEnterView: View
                     .foregroundColor(.blue)
                 Spacer()
                 TextField("", text: $genreS)
-                    .textFieldStyle(.roundedBorder)
+                    .textFieldStyle(.roundedBorder).disabled(true)
                     
             }
             
@@ -466,7 +472,7 @@ struct dataEnterView: View
                     .foregroundColor(.blue)
                 Spacer()
                 TextField("", text: $priceS)
-                    .textFieldStyle(.roundedBorder)
+                    .textFieldStyle(.roundedBorder).disabled(true)
                     
             }
         }
