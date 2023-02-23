@@ -190,7 +190,7 @@ struct ContentView: View {
                                 
                             },
                                    label: {
-                                Text("Delete")
+                                Text("Edit")
                             })
                             
                             Spacer()
