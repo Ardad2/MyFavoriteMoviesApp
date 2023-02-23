@@ -85,9 +85,16 @@ struct ContentView: View {
                         Button(action:
                         {
                             //print(movieModel.getCount())
-                                                        
-                            movieModel.add_movie(titleN, (genreN), Double(priceN) ?? 0.0)
-                            searchMode = true
+                            
+                            if ((movieModel.getIndex(titleN)) != -1 )
+                            {
+                                statusMessage = "A movie with that title is also present in the record!"
+                            }
+                                
+                            else {
+                                movieModel.add_movie(titleN, (genreN), Double(priceN) ?? 0.0)
+                                searchMode = true
+                            }
                         },
                         label: {
                             Image(systemName: "plus.app")
@@ -177,8 +184,22 @@ struct ContentView: View {
                                     {
                                 // implement this as an activity
                                 
-                                showingEditAlert = true;
+                                if ((movieModel.getIndex(sTitle)) != -1 )
+                                {
+                                    showingEditAlert = true;
+                                }
                                 
+                               /* if (movieModel.getSize() > 0 || (movieModel.getIndex(sTitle) == -1 ) )
+                                {
+                                    showingEditAlert = true;
+                                }
+                                else
+                                {*/
+                                else {
+                                    showingEditAlert = false;}
+                               // }
+                                
+
                             },
                                    label: {
                                 Text("Edit")
@@ -243,7 +264,7 @@ struct ContentView: View {
                             showingSearchAlert = false
                         })
                     }, message: {
-                        Text("Please enter Title to Search.")
+                        Text("Please enter the new genre and price.")
                     }) .alert("Edit Record", isPresented: $showingEditAlert, actions: {
 
                         
@@ -255,8 +276,14 @@ struct ContentView: View {
                             
                             searchMode = true
                             
-                            movieModel.edit_movie(changeIndex: (movieModel.getIndex(sTitle)), newGenre, Double(newPrice) ?? 0.0);
-
+                            //let m = movieModel.getHead()
+                            
+                                
+                                movieModel.edit_movie(changeIndex: (movieModel.getIndex(sTitle)), newGenre, Double(newPrice) ?? 0.0);
+                                
+                                sTitle = ""
+                                sGenre = ""
+                                sPrice = ""
 
                             
                             showingEditAlert = false
@@ -370,7 +397,8 @@ struct ContentView: View {
                                 print("In search")
                             }
                             else {
-                                sTitle = "Record Not found"
+                                statusMessage = "The record was not found"
+                                sTitle = ""
                                 sGenre = " "
                                 sPrice = "";
                                 print("Record is not there");

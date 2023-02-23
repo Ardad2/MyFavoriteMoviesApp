@@ -16,6 +16,11 @@ class movieArray: ObservableObject
         
     }
     
+    func getSize() -> Int
+    {
+        return array.count
+    }
+    
     //Return the first movie in the Array
     
     func getHead() -> movieRecord?
@@ -27,6 +32,7 @@ class movieArray: ObservableObject
             return array[0];
 
     }
+    
     
     //Get the Index
     
