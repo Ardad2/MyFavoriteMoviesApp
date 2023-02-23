@@ -34,7 +34,7 @@ struct ContentView: View {
                 Spacer()
                 NaviView(titleN: $title,genreN:$genre, priceN:$price, statusMessage: $statusMessage, deleteTitle: $deleteTitle, movieModel: array, searchMode: $searchMode)
                 
-                Text("Details of New Movie")
+                //Text("Details of New Movie")
                 
                 dataEnterView( titleD: $title,genreD:$genre, priceD:$price, statusMessage: $statusMessage, searchMode: $searchMode)
                 
@@ -48,10 +48,10 @@ struct ContentView: View {
                     {
                         Text("Currently in navigation mode")
                     }
+                    Text("\(statusMessage)");
+                    
                     SearchView(titleS: $searchTitle, genreS: $searchGenre, priceS: $searchPrice, statusMessage: $statusMessage, searchMode: $searchMode)
                 }
-                Spacer()
-                Text("\(statusMessage)");
                 Spacer()
                 ToolView(searchTitle: "1",  newGenre: "", newPrice: "", sTitle: $searchTitle, sGenre: $searchGenre, sPrice: $searchPrice, statusMessage: $statusMessage, searchMode: $searchMode, movieModel: array)
                
@@ -112,7 +112,7 @@ struct ContentView: View {
                            movieModel.delete_movie(deleteTitle);
                             
                            searchMode = true;
-                           statusMessage = "The movie  "
+                           statusMessage = "The deleted moive's details:  "
                            
                            showingDeleteAlert = false
                            
