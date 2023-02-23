@@ -85,6 +85,10 @@ struct ContentView: View {
                             //print(movieModel.getCount())
                                                         
                             movieModel.add_movie(titleN, (genreN), Double(priceN) ?? 0.0)
+                            searchMode = true
+                            titleN = ""
+                            genreN = ""
+                            priceN = ""
                         },
                         label: {
                             Image(systemName: "plus.app")
@@ -105,14 +109,13 @@ struct ContentView: View {
                        TextField("Enter Title", text: $deleteTitle)
 
                        Button("Delete", action: {
-                           
-                           titleN = (movieModel.getPrevious(movieModel.getIndex(deleteTitle)))!.get_title();
-                           genreN = (movieModel.getPrevious(movieModel.getIndex(deleteTitle)))!.get_genre();
-                           priceN =  String((movieModel.getPrevious(movieModel.getIndex(deleteTitle)))!.get_price());
-                           
+
                            movieModel.delete_movie(deleteTitle);
                             
-                           searchMode = false;
+                           searchMode = true;
+                           titleN = ""
+                           genreN = ""
+                           priceN = ""
                            
                            showingDeleteAlert = false
                            
