@@ -88,7 +88,7 @@ struct ContentView: View {
                             
                             if ((movieModel.getIndex(titleN)) != -1 )
                             {
-                                statusMessage = "A movie with that title is also present in the record!"
+                                statusMessage = "A movie with that title is already present in the record!"
                             }
                                 
                             else {
