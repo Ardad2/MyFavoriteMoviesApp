@@ -25,6 +25,8 @@ struct ContentView: View {
     
     @State var searchMode:Bool
     
+    //@State var
+    
     
     var body: some View {
         NavigationView{
@@ -37,8 +39,6 @@ struct ContentView: View {
                 dataEnterView( titleD: $title,genreD:$genre, priceD:$price, statusMessage: $statusMessage, searchMode: $searchMode)
                 
                 Spacer()
-                    Text("\(statusMessage)");
-                Spacer()
                 VStack {
                     if (searchMode == true)
                     {
@@ -50,6 +50,8 @@ struct ContentView: View {
                     }
                     SearchView(titleS: $searchTitle, genreS: $searchGenre, priceS: $searchPrice, statusMessage: $statusMessage, searchMode: $searchMode)
                 }
+                Spacer()
+                Text("\(statusMessage)");
                 Spacer()
                 ToolView(searchTitle: "1",  newGenre: "", newPrice: "", sTitle: $searchTitle, sGenre: $searchGenre, sPrice: $searchPrice, statusMessage: $statusMessage, searchMode: $searchMode, movieModel: array)
                
@@ -110,6 +112,7 @@ struct ContentView: View {
                            movieModel.delete_movie(deleteTitle);
                             
                            searchMode = true;
+                           statusMessage = "The movie  "
                            
                            showingDeleteAlert = false
                            
