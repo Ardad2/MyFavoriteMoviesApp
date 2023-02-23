@@ -20,7 +20,12 @@ class movieArray: ObservableObject
     
     func getHead() -> movieRecord?
     {
-        return array[0];
+        if (array.count == 0)
+        {
+            return nil;
+        }
+            return array[0];
+
     }
     
     //Get the Index

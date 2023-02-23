@@ -187,6 +187,15 @@ struct ContentView: View {
                             Spacer()
                             Button(action:
                                     {
+                                let m = movieModel.getHead()
+                                
+                                if (m != nil)
+                                {
+                                    sTitle = m!.get_title()
+                                    sGenre = m!.get_genre()
+                                    sPrice = String(m!.get_price())
+                                }
+                                
                                 searchMode = false;
                             },
                                    label: {
@@ -258,6 +267,8 @@ struct ContentView: View {
                     })
             }
             else {
+
+
                 Text("")
                     .toolbar{
                         ToolbarItem(placement: .bottomBar) {
