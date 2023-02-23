@@ -144,7 +144,7 @@ struct ContentView: View {
         @Binding var sPrice:String
         @Binding var statusMessage:String
         @Binding var searchMode:Bool
-        @Binding var clearSearchMode:Bool;
+        //@Binding var clearSearchMode:Bool;
         
         @ObservedObject var movieModel : movieArray
         

@@ -16,6 +16,13 @@ class movieArray: ObservableObject
         
     }
     
+    //Return the first movie in the Array
+    
+    func getHead() -> movieRecord?
+    {
+        return array[0];
+    }
+    
     //Get the Index
     
     func getIndex(_ title:String) -> Int
