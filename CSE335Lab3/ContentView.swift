@@ -51,7 +51,7 @@ struct ContentView: View {
                     SearchView(titleS: $searchTitle, genreS: $searchGenre, priceS: $searchPrice, statusMessage: $statusMessage, searchMode: $searchMode)
                 }
                 Spacer()
-                ToolView(searchTitle: "1", sTitle: $searchTitle, sGenre: $searchGenre, sPrice: $searchPrice, statusMessage: $statusMessage, searchMode: $searchMode, movieModel: array)
+                ToolView(searchTitle: "1",  newGenre: "", newPrice: "", sTitle: $searchTitle, sGenre: $searchGenre, sPrice: $searchPrice, statusMessage: $statusMessage, searchMode: $searchMode, movieModel: array)
                
             }
             .padding()
@@ -86,9 +86,6 @@ struct ContentView: View {
                                                         
                             movieModel.add_movie(titleN, (genreN), Double(priceN) ?? 0.0)
                             searchMode = true
-                            titleN = ""
-                            genreN = ""
-                            priceN = ""
                         },
                         label: {
                             Image(systemName: "plus.app")
@@ -113,9 +110,6 @@ struct ContentView: View {
                            movieModel.delete_movie(deleteTitle);
                             
                            searchMode = true;
-                           titleN = ""
-                           genreN = ""
-                           priceN = ""
                            
                            showingDeleteAlert = false
                            
@@ -137,6 +131,10 @@ struct ContentView: View {
     {
         @State  var searchTitle: String
         @State  var showingSearchAlert = false
+        @State var showingEditAlert = false
+        
+        @State var newGenre: String
+        @State var newPrice: String
         
         @Binding var sTitle: String
         @Binding var sGenre: String
@@ -144,6 +142,7 @@ struct ContentView: View {
         @Binding var statusMessage:String
         @Binding var searchMode:Bool
         @ObservedObject var movieModel : movieArray
+        
 
         @State  var showingNoRecordsFoundDialog = false
         
@@ -171,25 +170,7 @@ struct ContentView: View {
                                     {
                                 // implement this as an activity
                                 
-                                let m = movieModel.getNext(movieModel.getIndex(sTitle));
-                                
-                                if (m != nil)
-                                {
-                                    sTitle = m!.get_title()
-                                    sGenre = m!.get_genre()
-                                    sPrice = String(m!.get_price())
-                                }
-                                
-                                else {
-                                    if (movieModel.getIndex(sTitle) == -1)
-                                    {
-                                        statusMessage = "There are no Records present!";
-                                    }
-                                    else
-                                    {
-                                        statusMessage = "No more Records!";
-                                    }
-                                }
+                                showingEditAlert = true;
                                 
                             },
                                    label: {
@@ -229,6 +210,32 @@ struct ContentView: View {
                                 print("Record is not there");
                             }
                             showingSearchAlert = false
+                            
+                        })
+                        
+                        
+                        
+                        Button("Cancel", role: .cancel, action: {
+                            showingSearchAlert = false
+                        })
+                    }, message: {
+                        Text("Please enter Title to Search.")
+                    }) .alert("Edit Record", isPresented: $showingEditAlert, actions: {
+
+                        
+                        TextField("Enter New Genre", text: $newGenre)
+                        TextField("Enter New Price", text: $newPrice)
+                        
+                        
+                        Button("Edit", action: {
+                            
+                            searchMode = true
+                            
+                            movieModel.edit_movie(changeIndex: (movieModel.getIndex(sTitle)), newGenre, Double(newPrice) ?? 0.0);
+
+
+                            
+                            showingEditAlert = false
                             
                         })
                         
