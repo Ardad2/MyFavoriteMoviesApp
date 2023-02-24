@@ -25,18 +25,24 @@ struct ContentView: View {
     
     @State var searchMode:Bool
     
+    @State var searchModeClear: Bool
+
     //@State var
     
     
     var body: some View {
+        
+
+        
         NavigationView{
             VStack {
                 Spacer()
-                NaviView(titleN: $title,genreN:$genre, priceN:$price, statusMessage: $statusMessage, deleteTitle: $deleteTitle, movieModel: array, searchMode: $searchMode)
+                NaviView(titleN: $title,genreN:$genre, priceN:$price, searchTitle: $searchTitle, searchGenre: $searchGenre, searchPrice: $searchPrice, statusMessage: $statusMessage, deleteTitle: $deleteTitle, movieModel: array, searchMode: $searchMode, searchModeClear: $searchModeClear)
                 
                 Text("Details for New Movie")
-                
-                dataEnterView( titleD: $title,genreD:$genre, priceD:$price, statusMessage: $statusMessage, searchMode: $searchMode)
+
+                    dataEnterView( titleD: $title,genreD:$genre, priceD:$price, statusMessage: $statusMessage, searchMode: $searchMode, searchModeClear: $searchModeClear)
+
                 
                 Spacer()
                 VStack {
@@ -50,10 +56,10 @@ struct ContentView: View {
                     }
                     Text("\(statusMessage)");
                     
-                    SearchView(titleS: $searchTitle, genreS: $searchGenre, priceS: $searchPrice, statusMessage: $statusMessage, searchMode: $searchMode)
+                    SearchView(titleS: $searchTitle, genreS: $searchGenre, priceS: $searchPrice, statusMessage: $statusMessage, searchMode: $searchMode, searchModeClear: $searchModeClear)
                 }
                 Spacer()
-                ToolView(searchTitle: "1",  newGenre: "", newPrice: "", sTitle: $searchTitle, sGenre: $searchGenre, sPrice: $searchPrice, statusMessage: $statusMessage, searchMode: $searchMode, movieModel: array)
+                ToolView(searchTitle: "1",  newGenre: "", newPrice: "", sTitle: $searchTitle, sGenre: $searchGenre, sPrice: $searchPrice, statusMessage: $statusMessage, searchMode: $searchMode, searchModeClear: $searchModeClear, movieModel: array)
                
             }
             .padding()
@@ -69,6 +75,9 @@ struct ContentView: View {
         @Binding var titleN:String
         @Binding var genreN:String
         @Binding var priceN:String
+        @Binding var searchTitle:String
+        @Binding var searchGenre:String
+        @Binding var searchPrice:String
         @Binding var statusMessage:String
         
         @State var showingDeleteAlert = false
@@ -76,6 +85,7 @@ struct ContentView: View {
         @ObservedObject var movieModel : movieArray
         
         @Binding var searchMode:Bool;
+        @Binding var searchModeClear:Bool;
 
         var body: some View
         {
@@ -92,6 +102,12 @@ struct ContentView: View {
                             }
                                 
                             else {
+                                searchTitle = titleN;
+                                searchPrice = priceN;
+                                searchGenre = genreN;
+                                
+                                movieModel.delete_movie(deleteTitle);
+                                
                                 movieModel.add_movie(titleN, (genreN), Double(priceN) ?? 0.0)
                                 statusMessage = "Added movie \(titleN) to the records!"
                                 searchMode = true
@@ -119,10 +135,18 @@ struct ContentView: View {
 
                            if ((movieModel.getIndex(deleteTitle)) != -1 )
                            {
+                               let m = movieModel.getNext(movieModel.getIndex(deleteTitle));
+
+                               searchTitle = deleteTitle;
+                               searchPrice = String(m!.get_price())
+                               searchGenre = (m!.get_genre())
+                               
                                movieModel.delete_movie(deleteTitle);
                                                               
                                searchMode = true;
-                               statusMessage = "The movie \(deleteTitle) was succesfully deleted."
+                               statusMessage = "Below are the details of the movie deleted: "
+                            
+                        
                            }
                            
                            else {
@@ -159,8 +183,8 @@ struct ContentView: View {
         @Binding var sPrice:String
         @Binding var statusMessage:String
         @Binding var searchMode:Bool
-        //@Binding var clearSearchMode:Bool;
-        
+        @Binding var searchModeClear:Bool;
+
         @ObservedObject var movieModel : movieArray
         
         
@@ -446,43 +470,44 @@ struct dataEnterView: View
         @Binding var priceD:String
         @Binding var statusMessage:String
         @Binding var searchMode:Bool;
+        @Binding var searchModeClear:Bool;
 
 
         
         var body: some View
-        {
+    {
+
             HStack{
-               
+                
                 Text("Title:")
                     .foregroundColor(.blue)
                 Spacer()
                 TextField("Enter Title", text: $titleD)
                     .textFieldStyle(.roundedBorder)
-                    
+                
             }
             
             HStack{
-               
+                
                 Text("Genre:")
                     .foregroundColor(.blue)
                 Spacer()
                 TextField("Enter Genre", text: $genreD)
                     .textFieldStyle(.roundedBorder)
-                    
+                
             }
             
             HStack{
-               
+                
                 Text("Price:")
                     .foregroundColor(.blue)
                 Spacer()
                 TextField("Enter Price", text: $priceD)
                     .textFieldStyle(.roundedBorder)
-                    
-            }
+                
         }
-        
-    
+
+    }
     
     
     
@@ -491,51 +516,55 @@ struct dataEnterView: View
 //Search View
     
     struct SearchView: View
-    {
+{
         @Binding var titleS:String
         @Binding var genreS:String
         @Binding var priceS:String
         @Binding var statusMessage:String
         @Binding var searchMode:Bool;
-
+        @Binding var searchModeClear:Bool;
+        
         
         var body: some View
         {
-            HStack{
-               
-                Text("Title:")
-                    .foregroundColor(.blue)
-                Spacer()
-                TextField("", text: $titleS)
-                    .textFieldStyle(.roundedBorder).disabled(true)
+            if (searchModeClear == false)
+            {
+                HStack{
                     
-            }
-            HStack{
-               
-                Text("Genre:")
-                    .foregroundColor(.blue)
-                Spacer()
-                TextField("", text: $genreS)
-                    .textFieldStyle(.roundedBorder).disabled(true)
+                    Text("Title:")
+                        .foregroundColor(.blue)
+                    Spacer()
+                    TextField("", text: $titleS)
+                        .textFieldStyle(.roundedBorder).disabled(true)
                     
+                }
+                HStack{
+                    
+                    Text("Genre:")
+                        .foregroundColor(.blue)
+                    Spacer()
+                    TextField("", text: $genreS)
+                        .textFieldStyle(.roundedBorder).disabled(true)
+                    
+                }
+                
+                
+                HStack{
+                    
+                    Text("Price:")
+                        .foregroundColor(.blue)
+                    Spacer()
+                    TextField("", text: $priceS)
+                        .textFieldStyle(.roundedBorder).disabled(true)
+                    
+                }
             }
             
-            
-            HStack{
-               
-                Text("Price:")
-                    .foregroundColor(.blue)
-                Spacer()
-                TextField("", text: $priceS)
-                    .textFieldStyle(.roundedBorder).disabled(true)
-                    
-            }
         }
-        
     }
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView(title: "Avatar", genre: "Sci-Fi", price: "10.150", searchTitle: "", searchGenre: "", searchPrice: " ", deleteTitle: "", statusMessage
-                    : "", searchMode: false)
+                    : "", searchMode: false, searchModeClear: false)
     }
 }
