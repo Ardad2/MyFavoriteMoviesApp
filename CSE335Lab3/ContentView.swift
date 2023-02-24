@@ -136,11 +136,12 @@ struct ContentView: View {
                            if ((movieModel.getIndex(deleteTitle)) != -1 )
                            {
                                let m = movieModel.getNext(movieModel.getIndex(deleteTitle));
-
-                               searchTitle = deleteTitle;
-                               searchPrice = String(m!.get_price())
-                               searchGenre = (m!.get_genre())
-                               
+                               if (m != nil)
+                               {
+                                   searchTitle = deleteTitle;
+                                   searchPrice = String(m!.get_price())
+                                   searchGenre = (m!.get_genre())
+                               }
                                movieModel.delete_movie(deleteTitle);
                                                               
                                searchMode = true;
